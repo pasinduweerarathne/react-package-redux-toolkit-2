@@ -1,7 +1,13 @@
-import Counter from "./features/counter/Counter";
+import AddPost from "./features/posts/AddPost";
+import Posts from "./features/posts/Posts";
 
 function App() {
-  return <></>;
+  return (
+    <main>
+      <AddPost />
+      <Posts />
+    </main>
+  );
 }
 
 export default App;
