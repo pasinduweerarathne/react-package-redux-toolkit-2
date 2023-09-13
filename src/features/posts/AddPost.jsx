@@ -4,26 +4,27 @@ import { addPost } from "./postSlice";
 
 const AddPost = () => {
   const users = useSelector((state) => state.users);
+  let newPostId = useSelector((state) => state.posts.posts.length);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [body, setBody] = useState("");
   const [userId, setUserId] = useState("");
 
   const onTitleChanged = (e) => setTitle(e.target.value);
-  const onContentChanged = (e) => setContent(e.target.value);
+  const onBodyChanged = (e) => setBody(e.target.value);
   const onAuthorChanged = (e) => setUserId(e.target.value);
 
   const onSavePostClicked = () => {
-    if (title && content) {
-      dispatch(addPost(title, content, userId));
+    if (title && body) {
+      dispatch(addPost(title, body, userId, newPostId + 1));
       setTitle("");
-      setContent("");
+      setBody("");
       setUserId("");
     }
   };
 
-  const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
+  const canSave = Boolean(title) && Boolean(body) && Boolean(userId);
 
   const usersOption = users.map((user) => (
     <option key={user.id} value={user.id}>
@@ -52,8 +53,8 @@ const AddPost = () => {
         <textarea
           id="postContent"
           name="postContent"
-          value={content}
-          onChange={onContentChanged}
+          value={body}
+          onChange={onBodyChanged}
         />
         <button disabled={!canSave} type="button" onClick={onSavePostClicked}>
           Save Post
